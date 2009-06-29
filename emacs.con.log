@@ -19,3 +19,23 @@ lrwxrwxrwx 1 root root  103 Jun 29 19:05 switch-of-indi.script.con.log -> /mnt/w
 >$ git add .
 >$ export EDITOR=emacsclient
 >$ git commit -a
+Waiting for Emacs...
+Created initial commit 0300d07: 1st commit
+ 6 files changed, 28 insertions(+), 0 deletions(-)
+ create mode 120000 .#emacs.con.log
+ create mode 120000 SMSC_trace_3cc70325.resp
+ create mode 120000 SMSC_trace_41df034a.resp
+ create mode 100644 emacs.con.log
+ create mode 100644 emacs.con.log~
+ create mode 120000 switch-of-indi.script.con.log
+
+>$ git remote add origin git@github.com:pepe5/merge-view.git
+>$ git push origin master
+Counting objects: 8, done.
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (8/8), 1.15 KiB, done.
+Total 8 (delta 1), reused 0 (delta 0)
+To git@github.com:pepe5/merge-view.git
+ * [new branch]      master -> master
+
+>$ 
