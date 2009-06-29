@@ -1,0 +1,3 @@
+[root@andLinux cr15282 20-digits]# cd
+[root@andLinux ~]# TERM=ansi; PS1='>$ '; stty cols 999                                                          
+>$ 

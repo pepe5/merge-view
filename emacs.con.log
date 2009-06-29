@@ -1,0 +1,21 @@
+>$ pushd ~/text/merge-view
+~/text/merge-view ~
+
+>$ git init
+Initialized empty Git repository in /root/text/merge-view/.git/
+
+>$ ls -alF
+total 32
+drwxr-xr-x 3 root root 4096 Jun 29 19:05 ./
+lrwxrwxrwx 1 root root   29 Jun 29 19:05 .#emacs.con.log -> root@andLinux.3096:1246005411
+drwxr-xr-x 5 root root 4096 Jun 29 18:57 ../
+drwxr-xr-x 7 root root 4096 Jun 29 19:04 .git/
+lrwxrwxrwx 1 root root   98 Jun 29 19:05 SMSC_trace_3cc70325.resp -> /mnt/win/pepa/dox(!)/tasks/small-projects/cr15282 20-digits/.bak/rbdl-stu/SMSC_trace_3cc70325.resp*
+lrwxrwxrwx 1 root root   98 Jun 29 19:05 SMSC_trace_41df034a.resp -> /mnt/win/pepa/dox(!)/tasks/small-projects/cr15282 20-digits/.bak/rbdl-stu/SMSC_trace_41df034a.resp*
+-rw-r--r-- 1 root root  128 Jun 29 19:05 emacs.con.log
+-rw-r--r-- 1 root root  154 Jun 29 18:58 emacs.con.log~
+lrwxrwxrwx 1 root root  103 Jun 29 19:05 switch-of-indi.script.con.log -> /mnt/win/pepa/dox(!)/tasks/small-projects/cr15282 20-digits/.bak/rbdl-stu/switch-of-indi.script.con.log*
+
+>$ git add .
+>$ export EDITOR=emacsclient
+>$ git commit -a
