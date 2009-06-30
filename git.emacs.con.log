@@ -51,4 +51,47 @@ Created commit 44587cd: data upload
  mode change 120000 => 100755
 
 >$ echo 1..>1; echo 2..>2
+>$ git add .
+>$ git commit -a
+Waiting for Emacs...
+Created commit ef575c4: 1st readall
+ 9 files changed, 125 insertions(+), 0 deletions(-)
+ rename .#emacs.con.log => .#git.emacs.con.log (100%)
+ create mode 100644 1
+ create mode 100644 2
+ copy emacs.con.log => git.emacs.con.log (81%)
+ rename emacs.con.log => git.emacs.con.log~ (82%)
+ create mode 100644 merge-view.rb
+ create mode 100644 merge-view.rb~
+ create mode 100644 tmp.emacs.con.log
+ create mode 100644 tmp.emacs.con.log~
+
+>$ git add .
+>$ git diff HEAD..HEAD^1 | egrep '^\+' | egrep -v '^\+$' | head
++++ b/.#emacs.con.log
++root@andLinux.3096:1246005411
++++ /dev/null
++++ /dev/null
++++ /dev/null
++++ b/emacs.con.log
++>$ pushd ~/text/merge-view
++~/text/merge-view ~
++>$ git init
++Initialized empty Git repository in /root/text/merge-view/.git/
+
+>$ git diff HEAD..HEAD^1 merge-view.rb | egrep '^\+' | egrep -v '^\+$' | head
++++ /dev/null
+
+>$ git diff | egrep '^\+' | egrep -v '^\+$' | head
++++ b/git.emacs.con.log
++>$ git add .
++>$ git commit -a
++Waiting for Emacs...
++Created commit ef575c4: 1st readall
++ 9 files changed, 125 insertions(+), 0 deletions(-)
++ rename .#emacs.con.log => .#git.emacs.con.log (100%)
++ create mode 100644 1
++ create mode 100644 2
++ copy emacs.con.log => git.emacs.con.log (81%)
+
 >$ 
