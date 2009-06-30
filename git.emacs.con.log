@@ -109,4 +109,16 @@ Created commit f8faabc: readline reads
  4 files changed, 26 insertions(+), 10 deletions(-)
  rewrite merge-view.rb (60%)
 
+>$ git add .
+>$ git commit -a
+Waiting for Emacs...
+Created commit aac58fd: min_by intro
+ 2 files changed, 15 insertions(+), 3 deletions(-)
+
+>$ ruby merge-view.rb 1 2
+{"1"=>"1:aaa..\n"}
+"1": "1:aaa..\n"
+"2": "2:bbb..\n"
+1:aaa..
+
 >$ 
