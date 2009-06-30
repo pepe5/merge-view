@@ -13,8 +13,9 @@ class HashPlus < Hash
   def fillupFrom (srcs);
     puts ">| fillup |: #{self.inspect}"
     for k,v in self do
-      if v.size < 1 then self[k] << (srcs .find {|f| f.path==k}) .readline end
-    end;
+      begin if v.size < 1 then self[k] << (srcs .find {|f| f.path==k}) .readline end
+      rescue EOFError; (srcs .find {|f| f.path==k}) .close; self .delete k end
+    end
     puts "+| #{self.inspect}"
   end
 end
@@ -39,9 +40,11 @@ class MoreSrcsFile #?<< File
 end
 
 puts ((myFiles = MoreSrcsFile .new ARGV) .readline)
-# puts "cache: #{myFiles.cache .inspect}"
 puts
 puts ((myFiles) .readline)
+puts
+puts ((myFiles) .readline)
+
 # puts "cache: #{myFiles.cache .inspect}"
 # puts "min (_by..):"
 # myFiles .cache .min
