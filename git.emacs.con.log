@@ -94,4 +94,13 @@ Created commit ef575c4: 1st readall
 + create mode 100644 2
 + copy emacs.con.log => git.emacs.con.log (81%)
 
+>$ git commit -a
+Waiting for Emacs...
+Created commit 757cdb1: readall collecting
+ 4 files changed, 46 insertions(+), 87 deletions(-)
+ delete mode 100644 tmp.emacs.con.log
+ delete mode 100644 tmp.emacs.con.log~
+
+>$ echo 1:aaa..>1; echo 2:bbb..>2; echo 3:ccc..>>1
+>$ git add .
 >$ 
