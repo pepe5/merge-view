@@ -103,4 +103,10 @@ Created commit 757cdb1: readall collecting
 
 >$ echo 1:aaa..>1; echo 2:bbb..>2; echo 3:ccc..>>1
 >$ git add .
+>$ git commit -a
+Waiting for Emacs...
+Created commit f8faabc: readline reads
+ 4 files changed, 26 insertions(+), 10 deletions(-)
+ rewrite merge-view.rb (60%)
+
 >$ 
