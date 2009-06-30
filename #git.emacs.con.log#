@@ -128,4 +128,4 @@ Created commit b383251: readline +/-
  2 files changed, 27 insertions(+), 4 deletions(-)
  create mode 100644 v}
 
->$ 
+>$ ruby merge-view.rb 1 2
