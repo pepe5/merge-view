@@ -1,48 +1,48 @@
 # = Merge View pkg
-#!< HashAsoc < Hash; def key...; def value...; end
-#!< for k -> for k,v cleanup..
-class HashPlus < Hash
+class HashAsoc < Hash
+  def key (); self .keys .first end
+  def value (); self [self.key] end
+end
+
+class HashPlus < HashAsoc #!< HashAsoc
   def min ()
-    puts ">| min |: #{self.inspect}"
-    min = {(self.keys) [0] => self [(self.keys) [0]] [0]}
-    for k in self.keys do
-      if ((min[(min .keys)[0]] .scan /\d+/) [0] .to_i) > ((self[k][0] .scan /\d+/) [0] .to_i) then
-        min = {k=>self[k]}
-      end; end
-    min; end
-  def fillupFrom (srcs);
-    puts ">| fillup |: #{self.inspect}"
+    min = HashAsoc .new; min [self.key] = self .value .first
+    for k,v in self do
+      puts ">|@ k,v: #{[k,v].inspect}"
+      maybe = ((self[k] .first .scan /\d+/) [0] .to_i); puts "maybe: #{maybe}"
+      orig = ((min .value .first .scan /\d+/) [0] .to_i); puts "orig: #{orig}"
+      if orig > maybe then min = HashAsoc .new; min[k]=v end end
+    min end
+
+  def fillupFrom (srcs)
     for k,v in self do
       begin if v.size < 1 then self[k] << (srcs .find {|f| f.path==k}) .readline end
-      rescue EOFError; (srcs .find {|f| f.path==k}) .close; self .delete k end
-    end
-    puts "+| #{self.inspect}"
-  end
+      rescue EOFError
+        (srcs .find {|f| f.path==k}) .close;
+        puts $stderr << "file #{k} closed."
+        self .delete k end end end
 end
 
 class MoreSrcsFile #?<< File
-  def m1 (kvp={}); p = {:k1=>'d1', :k2=>'d2'} .merge! kvp; puts "p:#{p.inspect}"; end
+  def m1 (kvp={}); p = {:k1=>'d1', :k2=>'d2'} .merge! kvp; puts "p:#{p.inspect}" end
+  def readall (); @srcs .collect {|f| f .readlines} end
+
   attr :cache, :srcs
   def initialize (fds, modeString='r')
     @cache = HashPlus .new
     @srcs = fds .collect {|i| File .new i, modeString} end
-  def readall (); @srcs .collect {|f| f .readlines} end
-  def readline ();
+
+  def readline ()
     if @cache .size < 1 then @srcs .each {|f| @cache[f.path] = [f .readline]} end
-    puts "@cache before min: #{@cache.inspect}"
     minCons = @cache .min
-    o = @cache [(minCons .keys)[0]] .pop #&
-    puts "poped: #{o.inspect}"
-    puts "@cache after pop: #{@cache.inspect}}"
+    puts "minCons: #{minCons.inspect}"
+    o = @cache [minCons.key] .pop #&
     @cache .fillupFrom @srcs
-    puts "@cache after fillup: #{@cache.inspect}"
-    o; end
+    o end
 end
 
 puts ((myFiles = MoreSrcsFile .new ARGV) .readline)
-puts
 puts ((myFiles) .readline)
-puts
 puts ((myFiles) .readline)
 
 # puts "cache: #{myFiles.cache .inspect}"
