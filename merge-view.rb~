@@ -1,0 +1,6 @@
+# = Merge View pkg
+class MoreSrcStream << File
+  def m1 (kvp={}); p = {:k1=>'d1', :k2=>'d2'} .merge! kvp; puts "p:#{p.inspect}"; end
+end
+
+for 

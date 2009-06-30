@@ -38,4 +38,17 @@ Total 8 (delta 1), reused 0 (delta 0)
 To git@github.com:pepe5/merge-view.git
  * [new branch]      master -> master
 
+>$ git add .
+>$ git commit -a
+Waiting for Emacs...
+Created commit 44587cd: data upload
+ 4 files changed, 5790 insertions(+), 3 deletions(-)
+ rewrite SMSC_trace_3cc70325.resp (100%)
+ mode change 120000 => 100755
+ rewrite SMSC_trace_41df034a.resp (100%)
+ mode change 120000 => 100755
+ rewrite switch-of-indi.script.con.log (100%)
+ mode change 120000 => 100755
+
+>$ echo 1..>1; echo 2..>2
 >$ 
