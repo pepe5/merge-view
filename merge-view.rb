@@ -8,9 +8,8 @@ class HashPlus < HashAsoc #!< HashAsoc
   def min ()
     min = HashAsoc .new; min [self.key] = self .value .first
     for k,v in self do
-      puts ">|@ k,v: #{[k,v].inspect}"
-      maybe = ((self[k] .first .scan /\d+/) [0] .to_i); puts "maybe: #{maybe}"
-      orig = ((min .value .first .scan /\d+/) [0] .to_i); puts "orig: #{orig}"
+      maybe = ((self[k] .first .scan /\d+/) [0] .to_i)
+      orig = ((min .value .first .scan /\d+/) [0] .to_i)
       if orig > maybe then min = HashAsoc .new; min[k]=v end end
     min end
 
@@ -35,7 +34,6 @@ class MoreSrcsFile #?<< File
   def readline ()
     if @cache .size < 1 then @srcs .each {|f| @cache[f.path] = [f .readline]} end
     minCons = @cache .min
-    puts "minCons: #{minCons.inspect}"
     o = @cache [minCons.key] .pop #&
     @cache .fillupFrom @srcs
     o end

@@ -229,4 +229,11 @@ minCons: {"1"=>"3:ccc..\n"}
 file 1 closed.#<IO:0xb7ce455c>
 3:ccc..
 
+>$ git add .
+>$ git commit -a
+Waiting for Emacs...
+Created commit ecdc53b: cleanup +/-; dbg state
+ 3 files changed, 290 insertions(+), 28 deletions(-)
+ create mode 100644 #git.emacs.con.log#
+
 >$ 
