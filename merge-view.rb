@@ -12,10 +12,14 @@ class HashPlus < HashAsoc
   def min_by (b=nil)
     b = (b) ? b : @@b
     min = HashAsoc .new; min [self.key] = self .value .first
+    # puts "min value: #{min.value.inspect}"
     for k,v in self do
+      # puts "cache v: #{v.inspect}"
       maybe = b.call k,v
       orig = b.call min.key, min.value
+      # puts "orig > maybe: #{[orig > maybe, ':', orig, '>', maybe] .inspect}"
       if orig > maybe then min = HashAsoc .new; min[k]=v end end
+    # puts "<| min.."
     min end
 
   def fillupFrom (srcs)
@@ -45,23 +49,28 @@ class MoreSrcsFile #?, < File
     if @cache .size < 1 then @srcs .each {|f| @cache[f.path] = [f .readline]} end
     @cache .fillupFrom @srcs
     minCons = @cache .min_by @criteria
-    readline = @cache [minCons.key] .pop #&
-    readline end
+    # puts 'readline pop..'
+    @cache [minCons.key] .pop end
 
   # < Enumerable //www.ruby-forum.com/topic/125914
-  def each (); loop { yield self.next } end # while true do... end
   def next ()
     begin self .readline
     rescue EOFError; raise StopIteration end end
+  def each (); loop { yield self.next } end # while true do... end
 end
 
 a = (defined? args) ? args : ARGV
 myFiles = MoreSrcsFile .new a
 require 'time'
-myFiles .criteria = lambda {|k,v| Time .parse ((v .first .split "|") [0], Time.now)}
+myFiles .criteria = proc \
+{|k,v|
+  t = (v .first .split "|") [0] # puts "t: #{t.inspect}"
+  begin Time .parse t, (Time.now) #  if t =~ /[0-9:.]+/ then... else 0 end; # p 'time..'
+  rescue ArgumentError; Time .at 0 end
+}
 
 for l in myFiles do puts l end
-
+puts
 # puts "cache: #{myFiles.cache .inspect}"
 # puts "min (_by..):"
 # myFiles .cache .min
