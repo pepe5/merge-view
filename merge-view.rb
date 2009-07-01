@@ -7,9 +7,9 @@ end
 class HashPlus < HashAsoc
   @@b = lambda {|k,v| (v .first .scan /\d+/) [0] .to_i}
   def min_by (&b)
+    b = (b) ? b : @@b
     min = HashAsoc .new; min [self.key] = self .value .first
     for k,v in self do
-      b = (b) ? b : @@b
       maybe = @@b.call k,v
       orig = @@b.call min.key, min.value
       if orig > maybe then min = HashAsoc .new; min[k]=v end end
