@@ -38,14 +38,14 @@ class MoreSrcsFile #?<< File
   def readline ()
     if @cache .size < 1 then
       @srcs .each {|f| @cache[f.path] = [f .readline]} end
-    minCons = if @criteria then
-                @cache .min_by @criteria else @cache .min_by end
+    minCons = @cache .min_by @criteria
     o = @cache [minCons.key] .pop #&
     @cache .fillupFrom @srcs
     o end
 end
 
-myFiles = MoreSrcsFile .new ARGV
+a = (defined? args) ? args : ARGV
+myFiles = MoreSrcsFile .new a
 require 'time' #>! ini-block &
 myFiles .criteria =
   lambda {|k,v| Time .parse ((v .first .split "|") [0], Time.now)}
