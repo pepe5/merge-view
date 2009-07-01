@@ -1,4 +1,6 @@
 # = Merge View pkg
+# >! 1.9: //www.slideshare.net/bootstrap/co-nowego-w-wiecie-rubyego
+# +> test on jruby
 # >? could be #{def s .m a; expr; end} w/o "()"
 class HashAsoc < Hash
   def key (); self .keys .first end
@@ -17,7 +19,6 @@ class HashPlus < HashAsoc
     min end
 
   def fillupFrom (srcs)
-    puts ">|cache: #{self.inspect}"
     for k,v in self do
       begin
         if v.size < 1 then self[k] << (srcs .find {|f| f.path==k}) .readline end
@@ -26,11 +27,10 @@ class HashPlus < HashAsoc
         puts $stderr << "file #{k} closed."
         self .delete k
         if self.size < 1 then raise EOFError, "close that multi-file..", caller end
-      end end
-      puts "<|cache: #{self.inspect}" end
+      end end end
 end
 
-class MoreSrcsFile #?<Enumerable, < File
+class MoreSrcsFile #?, < File
   def m1 (kvp={}); p = {:k1=>'d1', :k2=>'d2'} .merge! kvp; puts "p:#{p.inspect}" end
   def readall (); @srcs .collect {|f| f .readlines} end
 
@@ -48,7 +48,11 @@ class MoreSrcsFile #?<Enumerable, < File
     readline = @cache [minCons.key] .pop #&
     readline end
 
-  def each (); while true do self .readline end end
+  # < Enumerable //www.ruby-forum.com/topic/125914
+  def each (); loop { yield self.next } end # while true do... end
+  def next ()
+    begin self .readline
+    rescue EOFError; raise StopIteration end end
 end
 
 a = (defined? args) ? args : ARGV
