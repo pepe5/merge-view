@@ -273,4 +273,5 @@ file 2 closed.#<IO:0xb7ccf558>
 Waiting for Emacs...
 Created commit 76202f6: (min's) block start
  4 files changed, 39 insertions(+), 6 deletions(-)
+
 >$ 

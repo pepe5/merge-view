@@ -5,12 +5,13 @@ class HashAsoc < Hash
 end
 
 class HashPlus < HashAsoc
-  def min ()
+  @@b = lambda {|k,v| (v .first .scan /\d+/) [0] .to_i}
+  def min_by (&b)
     min = HashAsoc .new; min [self.key] = self .value .first
     for k,v in self do
-      b = lambda {|k,v| (v .first .scan /\d+/) [0] .to_i}
-      maybe = b.call k,v
-      orig = b.call min.key, min.value
+      b = (b) ? b : @@b
+      maybe = @@b.call k,v
+      orig = @@b.call min.key, min.value
       if orig > maybe then min = HashAsoc .new; min[k]=v end end
     min end
 
@@ -34,7 +35,7 @@ class MoreSrcsFile #?<< File
 
   def readline ()
     if @cache .size < 1 then @srcs .each {|f| @cache[f.path] = [f .readline]} end
-    minCons = @cache .min
+    minCons = @cache .min_by {|k,v| (v .first .scan /\d+/) [0] .to_i}
     o = @cache [minCons.key] .pop #&
     @cache .fillupFrom @srcs
     o end
