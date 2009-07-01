@@ -28,9 +28,7 @@ class MoreSrcsFile #?<< File
   def m1 (kvp={}); p = {:k1=>'d1', :k2=>'d2'} .merge! kvp; puts "p:#{p.inspect}" end
   def readall (); @srcs .collect {|f| f .readlines} end
 
-  attr :cache
-  attr :srcs
-  attr :criteria
+  attr_accessor :cache, :srcs, :criteria
   def initialize (fds, modeString='r')
     @cache = HashPlus .new
     @srcs = fds .collect {|i| File .new i, modeString}
@@ -46,7 +44,7 @@ end
 
 myFiles = MoreSrcsFile .new ARGV
 require 'time' #>! ini-block &
-#!< cmp-block..
+myFiles .criteria = lambda {|k,v| Time .parse ((v .first .split "|") [0], Time.now)}
 puts ((myFiles) .readline)
 puts ((myFiles) .readline)
 puts ((myFiles) .readline)

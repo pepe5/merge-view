@@ -343,4 +343,19 @@ file 2 closed.#<IO:0xb7c51554>
 +++ b/merge-view.rb
 +      b = (b) ? b : @@b
 
+>$ git commit -a
+Waiting for Emacs...
+Created commit a5b136a: block -> optional
+ 4 files changed, 65 insertions(+), 8 deletions(-)
+
+>$ git add .
+>$ ruby merge-view.rb 1 2
+merge-view.rb:47: warning: don't put space before argument parentheses
+11:22:11|aaa..
+file 1 closed.#<IO:0xb7c3c550>
+22:33:33|ccc..
+file 2 closed.#<IO:0xb7c3c550>
+22:22:22|bbb..
+
+>$ git add .
 >$ 
