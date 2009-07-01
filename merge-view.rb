@@ -10,14 +10,15 @@ class HashPlus < HashAsoc
     b = (b) ? b : @@b
     min = HashAsoc .new; min [self.key] = self .value .first
     for k,v in self do
-      maybe = @@b.call k,v
-      orig = @@b.call min.key, min.value
+      maybe = b.call k,v
+      orig = b.call min.key, min.value
       if orig > maybe then min = HashAsoc .new; min[k]=v end end
     min end
 
   def fillupFrom (srcs)
     for k,v in self do
-      begin if v.size < 1 then self[k] << (srcs .find {|f| f.path==k}) .readline end
+      begin
+        if v.size < 1 then self[k] << (srcs .find {|f| f.path==k}) .readline end
       rescue EOFError
         (srcs .find {|f| f.path==k}) .close;
         puts $stderr << "file #{k} closed."
@@ -35,8 +36,10 @@ class MoreSrcsFile #?<< File
     @criteria = nil end
 
   def readline ()
-    if @cache .size < 1 then @srcs .each {|f| @cache[f.path] = [f .readline]} end
-    minCons = if @criteria then @cache .min_by @criteria else @cache .min_by end
+    if @cache .size < 1 then
+      @srcs .each {|f| @cache[f.path] = [f .readline]} end
+    minCons = if @criteria then
+                @cache .min_by @criteria else @cache .min_by end
     o = @cache [minCons.key] .pop #&
     @cache .fillupFrom @srcs
     o end
@@ -44,7 +47,8 @@ end
 
 myFiles = MoreSrcsFile .new ARGV
 require 'time' #>! ini-block &
-myFiles .criteria = lambda {|k,v| Time .parse ((v .first .split "|") [0], Time.now)}
+myFiles .criteria =
+  lambda {|k,v| Time .parse ((v .first .split "|") [0], Time.now)}
 puts ((myFiles) .readline)
 puts ((myFiles) .readline)
 puts ((myFiles) .readline)
