@@ -1,4 +1,5 @@
 # = Merge View pkg
+# >? could be #{def s .m a; expr; end} w/o "()"
 class HashAsoc < Hash
   def key (); self .keys .first end
   def value (); self [self.key] end
@@ -16,16 +17,20 @@ class HashPlus < HashAsoc
     min end
 
   def fillupFrom (srcs)
+    puts ">|cache: #{self.inspect}"
     for k,v in self do
       begin
         if v.size < 1 then self[k] << (srcs .find {|f| f.path==k}) .readline end
       rescue EOFError
         (srcs .find {|f| f.path==k}) .close;
         puts $stderr << "file #{k} closed."
-        self .delete k end end end
+        self .delete k
+        if self.size < 1 then raise EOFError, "close that multi-file..", caller end
+      end end
+      puts "<|cache: #{self.inspect}" end
 end
 
-class MoreSrcsFile #?<< File
+class MoreSrcsFile #?<Enumerable, < File
   def m1 (kvp={}); p = {:k1=>'d1', :k2=>'d2'} .merge! kvp; puts "p:#{p.inspect}" end
   def readall (); @srcs .collect {|f| f .readlines} end
 
@@ -36,22 +41,22 @@ class MoreSrcsFile #?<< File
     @criteria = nil end
 
   def readline ()
-    if @cache .size < 1 then
-      @srcs .each {|f| @cache[f.path] = [f .readline]} end
-    minCons = @cache .min_by @criteria
-    o = @cache [minCons.key] .pop #&
+    #>! redefine after initialization!
+    if @cache .size < 1 then @srcs .each {|f| @cache[f.path] = [f .readline]} end
     @cache .fillupFrom @srcs
-    o end
+    minCons = @cache .min_by @criteria
+    readline = @cache [minCons.key] .pop #&
+    readline end
+
+  def each (); while true do self .readline end end
 end
 
 a = (defined? args) ? args : ARGV
 myFiles = MoreSrcsFile .new a
-require 'time' #>! ini-block &
-myFiles .criteria =
-  lambda {|k,v| Time .parse ((v .first .split "|") [0], Time.now)}
-puts ((myFiles) .readline)
-puts ((myFiles) .readline)
-puts ((myFiles) .readline)
+require 'time'
+myFiles .criteria = lambda {|k,v| Time .parse ((v .first .split "|") [0], Time.now)}
+
+for l in myFiles do puts l end
 
 # puts "cache: #{myFiles.cache .inspect}"
 # puts "min (_by..):"
