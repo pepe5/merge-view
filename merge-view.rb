@@ -4,12 +4,13 @@ class HashAsoc < Hash
   def value (); self [self.key] end
 end
 
-class HashPlus < HashAsoc #!< HashAsoc
+class HashPlus < HashAsoc
   def min ()
     min = HashAsoc .new; min [self.key] = self .value .first
     for k,v in self do
-      maybe = ((self[k] .first .scan /\d+/) [0] .to_i)
-      orig = ((min .value .first .scan /\d+/) [0] .to_i)
+      b = lambda {|k,v| (v .first .scan /\d+/) [0] .to_i}
+      maybe = b.call k,v
+      orig = b.call min.key, min.value
       if orig > maybe then min = HashAsoc .new; min[k]=v end end
     min end
 

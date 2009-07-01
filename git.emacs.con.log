@@ -236,4 +236,36 @@ Created commit ecdc53b: cleanup +/-; dbg state
  3 files changed, 290 insertions(+), 28 deletions(-)
  create mode 100644 #git.emacs.con.log#
 
+>$ ruby merge-view.rb 1 2
+1:aaa..
+file 2 closed.#<IO:0xb7cba554>
+2:bbb..
+file 1 closed.#<IO:0xb7cba554>
+3:ccc..
+
+>$ git add .
+>$ git commit -a
+Waiting for Emacs...
+Created commit 95cd937: v1
+ 3 files changed, 9 insertions(+), 236 deletions(-)
+ delete mode 100644 #git.emacs.con.log#
+
+>$ git tag v1 95cd937
+>$ git push origin master
+Counting objects: 62, done.
+Compressing objects: 100% (51/51), done.
+Writing objects: 100% (57/57), 293.29 KiB | 85 KiB/s, done.
+Total 57 (delta 31), reused 0 (delta 0)
+Writing objects:  43% (25/57), 56.00 KiB | 85 KiB/s   Writing objects:  42% (24/57)   Writing objects:  28% (16/57)   Compressing objects:  29% (15/51)   Compressing objects:   7% (4/51)   
+To git@github.com:pepe5/merge-view.git
+   0300d07..95cd937  master -> master
+
+>$ echo 11:22:11--aaa..>1; echo 22:22:22::bbb..>2; echo 22:33:33**ccc..>>1
+>$ ruby merge-view.rb 1 2
+11:22:11--aaa..
+file 1 closed.#<IO:0xb7ccf558>
+22:33:33**ccc..
+file 2 closed.#<IO:0xb7ccf558>
+22:22:22::bbb..
+
 >$ 
