@@ -6,7 +6,7 @@ end
 
 class HashPlus < HashAsoc
   @@b = lambda {|k,v| (v .first .scan /\d+/) [0] .to_i}
-  def min_by (&b)
+  def min_by (b=nil)
     b = (b) ? b : @@b
     min = HashAsoc .new; min [self.key] = self .value .first
     for k,v in self do
@@ -28,20 +28,26 @@ class MoreSrcsFile #?<< File
   def m1 (kvp={}); p = {:k1=>'d1', :k2=>'d2'} .merge! kvp; puts "p:#{p.inspect}" end
   def readall (); @srcs .collect {|f| f .readlines} end
 
-  attr :cache, :srcs
+  attr :cache
+  attr :srcs
+  attr :criteria
   def initialize (fds, modeString='r')
     @cache = HashPlus .new
-    @srcs = fds .collect {|i| File .new i, modeString} end
+    @srcs = fds .collect {|i| File .new i, modeString}
+    @criteria = nil end
 
   def readline ()
     if @cache .size < 1 then @srcs .each {|f| @cache[f.path] = [f .readline]} end
-    minCons = @cache .min_by {|k,v| (v .first .scan /\d+/) [0] .to_i}
+    minCons = if @criteria then @cache .min_by @criteria else @cache .min_by end
     o = @cache [minCons.key] .pop #&
     @cache .fillupFrom @srcs
     o end
 end
 
-puts ((myFiles = MoreSrcsFile .new ARGV) .readline)
+myFiles = MoreSrcsFile .new ARGV
+require 'time' #>! ini-block &
+#!< cmp-block..
+puts ((myFiles) .readline)
 puts ((myFiles) .readline)
 puts ((myFiles) .readline)
 

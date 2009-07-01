@@ -292,4 +292,55 @@ Created commit ca81103: block parametrized
 >$ git commit -a
 Waiting for Emacs...
 
+>$ git commit -a
+Waiting for Emacs...
+Created commit 4de707d: block moved up..
+ 3 files changed, 20 insertions(+), 278 deletions(-)
+ delete mode 100644 #git.emacs.con.log#
+
+>$ git push origin master
+Counting objects: 20, done.
+Compressing objects: 100% (13/13), done.
+Writing objects: 100% (15/15), 1.80 KiB, done.
+Total 15 (delta 10), reused 0 (delta 0)
+To git@github.com:pepe5/merge-view.git
+   95cd937..4de707d  master -> master
+
+>$ echo 11:22:11|aaa..>1; echo 22:22:22|bbb..>2; echo 22:33:33|ccc..>>1
+bash: aaa..: command not found
+bash: echo: write error: Broken pipe
+bash: bbb..: command not found
+bash: echo: write error: Broken pipe
+bash: ccc..: command not found
+bash: echo: write error: Broken pipe
+
+>$ echo '11:22:11|aaa..'>1; echo '22:22:22|bbb..'>2; echo '22:33:33|ccc..'>>1
+>$ ruby merge-view.rb 1 2
+11:22:11|aaa..
+file 1 closed.#<IO:0xb7c51554>
+22:33:33|ccc..
+file 2 closed.#<IO:0xb7c51554>
+22:22:22|bbb..
+
+>$ git diff | egrep '^\+' | egrep -v '^\+$' | head
++++ b/1
++11:22:11|aaa..
++22:33:33|ccc..
++++ b/2
++22:22:22|bbb..
++++ b/git.emacs.con.log
++>$ git commit -a
++Waiting for Emacs...
++Created commit 4de707d: block moved up..
++ 3 files changed, 20 insertions(+), 278 deletions(-)
+
+>$ git diff HEAD..HEAD^1 merge-view.rb | egrep '^\+' | egrep -v '^\+$' | head
++++ b/merge-view.rb
++      b = (b) ? b : @@b
+
+>$ git add .
+>$ git diff HEAD..HEAD^1 merge-view.rb | egrep '^\+' | egrep -v '^\+$' | head
++++ b/merge-view.rb
++      b = (b) ? b : @@b
+
 >$ 
