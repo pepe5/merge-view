@@ -1,0 +1,58 @@
+[root@andLinux ~]# TERM=ansi; PS1='> '; stty cols 999                                                           
+> pushd ~/text/merge-view/
+~/text/merge-view ~
+
+> git add .
+> echo $EDITOR
+
+> export EDITOR=emacsclient
+> echo $EDITOR
+emacsclient
+
+> git commit -a
+Waiting for Emacs...
+
+> git checkout -b jrb-1
+D       .#git.emacs.con.log
+A       .bak/merge-view.rb
+A       emacs.con.log
+M       git.emacs.con.log
+M       git.emacs.con.log~
+M       merge-view.rb
+A       mkdir-commit.sh
+Switched to a new branch "jrb-1"
+
+> git push origin master
+Everything up-to-date
+
+> new='/mnt/win/pepa/dox(!)/text/envi,AT/merge-view/'
+> echo $new
+/mnt/win/pepa/dox(!)/text/envi,AT/merge-view/
+
+> diff -q $new/merge-view.rb ./merge-view.rb
+> git add .
+> git commit -a
+Waiting for Emacs...
+Created commit 239abe5: 2nd try to push jrb-1 branch
+ 7 files changed, 510 insertions(+), 24 deletions(-)
+ delete mode 120000 .#git.emacs.con.log
+ create mode 100644 .bak/merge-view.rb
+ create mode 100755 emacs.con.log
+ mode change 100644 => 100755 merge-view.rb
+ create mode 100755 mkdir-commit.sh
+
+> git push origin master
+Everything up-to-date
+
+> git push origin 
+Everything up-to-date
+
+> git push origin jrb-1
+Counting objects: 11, done.
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (8/8), 12.74 KiB, done.
+Total 8 (delta 3), reused 0 (delta 0)
+To git@github.com:pepe5/merge-view.git
+ * [new branch]      jrb-1 -> jrb-1
+
+> 
