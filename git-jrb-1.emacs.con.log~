@@ -55,23 +55,4 @@ Total 8 (delta 3), reused 0 (delta 0)
 To git@github.com:pepe5/merge-view.git
  * [new branch]      jrb-1 -> jrb-1
 
-> git add .
-> git commit -a
-Waiting for Emacs...
-Created commit 0b50d0e: git session howit was
- 2 files changed, 59 insertions(+), 0 deletions(-)
- create mode 120000 .#git-jrb-1.emacs.con.log
- create mode 100644 git-jrb-1.emacs.con.log
-
-> git push origin jrb-1
-Counting objects: 5, done.
-Compressing objects: 100% (3/3), done.
-Writing objects: 100% (4/4), 936 bytes, done.
-Total 4 (delta 1), reused 0 (delta 0)
-To git@github.com:pepe5/merge-view.git
-   239abe5..0b50d0e  jrb-1 -> jrb-1
-
-> git mv SMSC* .res/
-> git mv switch* .res/
-> git mv typescript .bak/
 > 
