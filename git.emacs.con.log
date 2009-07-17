@@ -358,4 +358,69 @@ file 2 closed.#<IO:0xb7c3c550>
 22:22:22|bbb..
 
 >$ git add .
+>$ git commit -a
+Waiting for Emacs...
+Created commit ccd01a7: time cmp start
+ 2 files changed, 17 insertions(+), 4 deletions(-)
+
+>$ git push origin master
+Counting objects: 15, done.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (10/10), 1.55 KiB, done.
+Total 10 (delta 6), reused 0 (delta 0)
+To git@github.com:pepe5/merge-view.git
+   4de707d..ccd01a7  master -> master
+
+>$ git pull origin master
+remote: Counting objects: 18, done.
+remote: Compressing objects: 100% (16/16), done.
+remote: Total 16 (delta 10), reused 0 (delta 0)
+Unpacking objects: 100% (16/16), done.
+From git@github.com:pepe5/merge-view
+ * branch            master     -> FETCH_HEAD
+Updating ccd01a7..47dee54
+git.emacs.con.log: needs update
+merge-view.rb: needs update
+v}: needs update
+error: Entry 'merge-view.rb' not uptodate. Cannot merge.
+
+>$ mkdir ../$(basename `pwd`)~
+>$ pushd ../$(basename `pwd`)~
+~/text/merge-view~ ~/text/merge-view ~
+
+>$ git init 
+Initialized empty Git repository in /root/text/merge-view~/.git/
+
+>$ git remote add origin git@github.com:pepe5/merge-view.git
+>$ git pull origin master
+warning: no common commits
+remote: Counting objects: 106, done.
+remote: Compressing objects: 100% (95/95), done.
+remote: Total 106 (delta 61), reused 0 (delta 0)
+Receiving objects: 100% (106/106), 368.47 KiB | 176 KiB/s, done.
+Resolving deltas: 100% (61/61), done.
+remote: Compressing objects:  77% (74/95)   
+remote: Compressing objects:   3% (3/95)   
+remote: Compressing objects:   1% (1/95)   
+remote: Counting objects: 19   
+From git@github.com:pepe5/merge-view
+ * branch            master     -> FETCH_HEAD
+
+>$ diff -qr ./ ../merge-view
+diff: ./.#git.emacs.con.log: No such file or directory
+diff: ../merge-view/.#git.emacs.con.log: No such file or directory
+Only in ../merge-view/.git: COMMIT_EDITMSG
+
+>$ diff -qr ./ ../merge-view | grep -v /.git/
+diff: ./.#git.emacs.con.log: No such file or directory
+diff: ../merge-view/.#git.emacs.con.log: No such file or directory
+Only in ../merge-view/.git: COMMIT_EDITMSG
+Only in ../merge-view/.git: COMMIT_EDITMSG~
+Only in ../merge-view/.git: ORIG_HEAD
+Files ./git.emacs.con.log and ../merge-view/git.emacs.con.log differ
+Files ./merge-view.rb and ../merge-view/merge-view.rb differ
+Only in ./: typescript
+
+>$ rm -rf ../merge-view/
+>$ mv ../merge-view~/ ../merge-view/
 >$ 
